@@ -1,21 +1,48 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { StyleSheet, StatusBar } from "react-native";
+import PlayScreen from "./screens/PlayScreen";
+import RecordScreen from "./screens/RecordScreen";
+import globalStyles from "./style/styles";
 
-export default function App() {
+const App = () => {
+  const Tab = createBottomTabNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar barStyle={"light-content"} />
+      <Tab.Navigator
+        style={styles.sty}
+        tabBarOptions={{
+          tabStyle: {
+            justifyContent: "center",
+          },
+          activeTintColor: "green",
+          inactiveBackgroundColor: globalStyles.mainBackgroundGreen,
+          activeBackgroundColor: globalStyles.mainBackgroundBrown,
+        }}
+      >
+        <Tab.Screen name="RecordScreen" component={RecordScreen} screen />
+        <Tab.Screen name="PlayScreen" component={PlayScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
+export default App;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+  sty: {
+    backgroundColor: "black",
   },
 });
+
+// screenOptions={({ route }) => ({
+//   tabBarIcon: ({ color, size }) => {
+//     color = "yellow";
+//     size = 40;
+//     return (
+//       <TouchableOpacity name={route.name} size={size} color={color} />
+//     );
+//   },
+// })}
